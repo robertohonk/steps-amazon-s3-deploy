@@ -1,4 +1,3 @@
-require 'uri'
 
 # --------------------------
 # --- Constants & Variables
@@ -153,7 +152,7 @@ begin
 
   fail 'Failed to upload IPA' unless do_s3upload(options[:ipa], ipa_full_s3_path, acl_arg)
 
-  export_output('S3_DEPLOY_STEP_URL_IPA', URI.encode(public_url_ipa))
+  export_output('S3_DEPLOY_STEP_URL_IPA', public_url_ipa)
 
   log_done('IPA upload success')
 
@@ -168,12 +167,12 @@ begin
 
     fail 'Failed to upload dSYM' unless do_s3upload(options[:dsym], dsym_full_s3_path, acl_arg)
 
-    export_output('S3_DEPLOY_STEP_URL_DSYM', URI.encode(public_url_dsym))
+    export_output('S3_DEPLOY_STEP_URL_DSYM', public_url_dsym)
 
     log_done('dSYM upload success')
   end
 
-  ENV['S3_DEPLOY_STEP_URL_IPA'] = URI.encode(public_url_ipa)
+  ENV['S3_DEPLOY_STEP_URL_IPA'] = public_url_ipa
 
   #
   # plist generation - we have to run it after we have obtained the public url to the ipa
